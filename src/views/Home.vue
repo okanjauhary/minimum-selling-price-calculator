@@ -117,7 +117,10 @@
 
 				<v-col cols="12">
 					<v-btn type="submit" color="success" large block :loading="loading">
-						Eksekusi nggeerrrr!!!
+						Eksekusi nggeerrrr
+					</v-btn>
+					<v-btn v-if="result" @click="resetData" class="mt-3" text large block>
+						Reset data
 					</v-btn>
 				</v-col>
 			</v-row>
@@ -168,6 +171,7 @@ export default {
 			this.product.additionalFee.splice(index, 1);
 		},
 		calculate() {
+			this.result = 0;
 			const isValid = this.$refs.form.validate();
 			if (isValid) {
 				this.loading = true;
@@ -183,6 +187,16 @@ export default {
 					this.loading = false;
 				}, 2000);
 			}
+		},
+		resetData() {
+			this.result = 0;
+			this.product = {
+				name: '',
+				priceUnit: null,
+				totalProduct: null,
+				additionalFee: [],
+				rejectionPersentage: null,
+			};
 		},
 	},
 };

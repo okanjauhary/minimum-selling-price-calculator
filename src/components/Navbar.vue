@@ -24,12 +24,7 @@
 			dark
 			@click="goToPage('History')"
 		>
-			<v-badge
-				:value="!!getTotalHistory"
-				color="error"
-				:content="getTotalHistory"
-				offset-y="10"
-			>
+			<v-badge :value="!!getNotVisibleHistory" color="error" dot>
 				<v-icon>mdi-history</v-icon>
 			</v-badge>
 		</v-btn>
@@ -42,7 +37,7 @@ export default {
 	name: 'Navbar',
 
 	computed: {
-		...mapGetters(['getTotalHistory']),
+		...mapGetters(['getNotVisibleHistory']),
 		previousPage() {
 			return this.$route.meta.back || '';
 		},

@@ -15,6 +15,9 @@ export default new Vuex.Store({
   getters: {
     getTotalHistory(state) {
       return state.history.length;
+    },
+    getNotVisibleHistory(state) {
+      return state.history.filter(h => !h.visible).length
     }
   },
   mutations: {
@@ -26,7 +29,7 @@ export default new Vuex.Store({
           continue;
         }
 
-        filteredAndUpdated.unshift(item);
+        filteredAndUpdated.push(item);
 
         if (filteredAndUpdated.length >= 9) {
           break;
@@ -35,6 +38,14 @@ export default new Vuex.Store({
 
       filteredAndUpdated.unshift({ ...payload });
       state.history = filteredAndUpdated;
+    },
+    setAllHistoryVisible(state) {
+      state.history = state.history.map(h => ({
+        ...h, visible: true
+      }))
+    },
+    clearHistory(state) {
+      state.history = []
     }
   },
   plugins: [vuexLocal.plugin]
